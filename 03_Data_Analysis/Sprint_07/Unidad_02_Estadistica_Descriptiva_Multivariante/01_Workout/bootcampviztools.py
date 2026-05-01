@@ -3,7 +3,7 @@ import seaborn as sns
 import pandas as pd
 import numpy as np
 
-
+# esta función sirve para visualizar de un solo golpe la distribución de todas tus variables categóricas. en esencia, una herramienta de ahorro de tiempo para entender la composición de tus datos cualitativos durante la fase inicial de un proyecto.
 def pinta_distribucion_categoricas(df, columnas_categoricas, relativa=False, mostrar_valores=False):
     num_columnas = len(columnas_categoricas)
     num_filas = (num_columnas // 2) + (num_columnas % 2)
@@ -39,7 +39,7 @@ def pinta_distribucion_categoricas(df, columnas_categoricas, relativa=False, mos
     plt.tight_layout()
     plt.show()
 
-
+# sirve para analizar la relación entre dos variables categóricas de forma visual,cómo se distribuye una categoría dentro de otra.
 def plot_categorical_relationship_fin(df, cat_col1, cat_col2, relative_freq=False, show_values=False, size_group = 5):
     # Prepara los datos
     count_data = df.groupby([cat_col1, cat_col2]).size().reset_index(name='count')
@@ -99,7 +99,7 @@ def plot_categorical_relationship_fin(df, cat_col1, cat_col2, relative_freq=Fals
         # Muestra el gráfico
         plt.show()
 
-
+# Sirve para comparar un valor numérico entre diferentes grupos, para ver cómo varía un número dependiendo de la categoría a la que pertenece.
 def plot_categorical_numerical_relationship(df, categorical_col, numerical_col, show_values=False, measure='mean'):
     # Calcula la medida de tendencia central (mean o median)
     if measure == 'median':
@@ -161,7 +161,15 @@ def plot_categorical_numerical_relationship(df, categorical_col, numerical_col, 
         # Muestra el gráfico
         plt.show()
 
-
+''' Sirve para analizar a fondo la distribución y los valores atípicos de tus variables numéricas.
+A diferencia de las anteriores, esta no compara categorías, sino que hace una "radiografía" individual de cada columna de números. 
+Por cada variable que le pidas, te dibuja dos gráficos en paralelo: 1) Histograma con KDE (Izquierda): Sirve para ver la forma de la distribución. 
+Te indica dónde se concentran los datos, si hay sesgos (si la "montaña" está hacia un lado) y si la distribución es acampanada (normal). 
+2) Boxplot o Diagrama de Caja (Derecha): Es la herramienta clave para detectar outliers (puntos aislados que se salen de lo común). 
+También muestra de forma muy visual la mediana y los cuartiles (dónde están el 50% de tus datos centrales).
+En resumen: es la función ideal para el análisis univariante numérico, 
+ayudándote a entender cómo se reparten tus datos y si tienes valores extraños que debas revisar o limpiar antes de trabajar con ellos.
+'''
 def plot_combined_graphs(df, columns, whisker_width=1.5, bins = None):
     num_cols = len(columns)
     if num_cols:
@@ -188,6 +196,7 @@ def plot_combined_graphs(df, columns, whisker_width=1.5, bins = None):
         plt.tight_layout()
         plt.show()
 
+# Esta función sirve para comparar la dispersión y los valores atípicos (outliers) entre grupos.
 def plot_grouped_boxplots(df, cat_col, num_col):
     unique_cats = df[cat_col].unique()
     num_cats = len(unique_cats)
@@ -204,7 +213,8 @@ def plot_grouped_boxplots(df, cat_col, num_col):
         plt.show()
 
 
-
+# Esta función sirve para comparar la "forma" de la distribución entre grupos superpuestos.
+# Dibuja varios histogramas (con su línea de densidad KDE) en un mismo gráfico, uno encima de otro, usando colores diferentes para cada categoría.
 def plot_grouped_histograms(df, cat_col, num_col, group_size):
     unique_cats = df[cat_col].unique()
     num_cats = len(unique_cats)
@@ -224,7 +234,7 @@ def plot_grouped_histograms(df, cat_col, num_col, group_size):
         plt.show()
 
 
-
+# Sirve para analizar la relación visual y matemática entre dos variables numéricas.Los patrones de dispersión por puntos.
 def grafico_dispersion_con_correlacion(df, columna_x, columna_y, tamano_puntos=50, mostrar_correlacion=False):
     """
     Crea un diagrama de dispersión entre dos columnas y opcionalmente muestra la correlación.
@@ -251,7 +261,8 @@ def grafico_dispersion_con_correlacion(df, columna_x, columna_y, tamano_puntos=5
     plt.grid(True)
     plt.show()
 
-
+# Sirve para analizar tres variables numéricas a la vez añadiendo una dimensión extra al gráfico de dispersión tradicional.
+# Es un gráfico de dispersión vitaminado que sirve para detectar qué puntos del mapa tienen más relevancia o peso según una tercera métrica.
 def bubble_plot(df, col_x, col_y, col_size, scale = 1000):
     """
     Crea un scatter plot usando dos columnas para los ejes X e Y,
